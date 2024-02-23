@@ -11,7 +11,7 @@ RUN apt-get update && \
 
 FROM gcr.io/distroless/base-nossl-debian12:nonroot@sha256:49edf7003af1015b0841f34a04197e8b1c5f1d0c91e897c97749c78ee38b8ec2
 #RUN mkdir -p /run/readsb
-
+COPY --from=builder /usr/local/bin/readsb /usr/local/bin/readsb
 COPY --from=builder /lib/*/libzstd.so.1 /lib/*/libzstd.so.1
 COPY --from=builder /lib/*/libusb-1.0.so.0 /lib/*/libusb-1.0.so.0
 COPY --from=builder /lib/*/libudev.so.1 /lib/*/libudev.so.1
