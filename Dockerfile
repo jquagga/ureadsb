@@ -1,4 +1,4 @@
-FROM debian:12-slim@sha256:6bdbd579ba71f6855deecf57e64524921aed6b97ff1e5195436f244d2cb42b12 AS builder
+FROM debian:12-slim AS builder
 WORKDIR /app/git
 RUN apt-get update && \
     apt-get install --no-install-recommends -y git wget ca-certificates pkg-config autoconf gcc make libusb-1.0-0-dev librtlsdr-dev librtlsdr0 libncurses-dev zlib1g-dev zlib1g libzstd-dev libzstd1 && \
