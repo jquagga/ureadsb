@@ -14,7 +14,7 @@ RUN apt-get update && \
 WORKDIR /copylibs
 RUN LIB_ARCH=$(case ${TARGETPLATFORM} in \
     "linux/amd64")   echo "x86_64-linux-gnu"  ;; \
-    "linux/arm/v7")  echo ""   ;; \
+    "linux/arm/v7")  echo "arm-linux-gnueabihf"   ;; \
     "linux/arm64")   echo "aarch64-linux-gnu" ;; \
     *)               echo ""        ;; esac) \
     && echo "LIB_ARCH=$LIB_ARCH" && \
