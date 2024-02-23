@@ -23,7 +23,7 @@ RUN LIB_ARCH=$(case ${TARGETPLATFORM} in \
     cp /lib/${LIB_ARCH}/libusb-1.0.so.0 /copylibs/${LIB_ARCH}/libusb-1.0.so.0 && \
     cp /lib/${LIB_ARCH}/libudev.so.1 /copylibs/${LIB_ARCH}/libudev.so.1 
 
-FROM gcr.io/distroless/base-nossl-debian12:nonroot@sha256:49edf7003af1015b0841f34a04197e8b1c5f1d0c91e897c97749c78ee38b8ec2
+FROM gcr.io/distroless/cc-debian12:nonroot
 COPY --from=builder /usr/local/bin/readsb /usr/local/bin/readsb
 COPY --from=builder /copylibs/* /lib/
 COPY --from=builder /usr/local/share/tar1090/aircraft.csv.gz /usr/local/share/tar1090/aircraft.csv.gz
