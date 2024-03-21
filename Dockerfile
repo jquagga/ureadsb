@@ -3,7 +3,7 @@ WORKDIR /app/git
 ARG TARGETPLATFORM
 RUN apt-get update && \
     apt-get install --no-install-recommends -y git wget ca-certificates pkg-config autoconf gcc make libusb-1.0-0-dev librtlsdr-dev librtlsdr0 libncurses-dev zlib1g-dev zlib1g libzstd-dev libzstd1 && \
-    git clone --depth 1 --branch v3.14.1616 https://github.com/wiedehopf/readsb.git /app/git && \
+    git clone --depth 1 --branch v3.14.1618 https://github.com/wiedehopf/readsb.git /app/git && \
     make -j$(nproc) OPTIMIZE="-O2" ZLIB_STATIC=yes DISABLE_INTERACTIVE=yes STATIC=yes RTLSDR=yes && \
     mv readsb /usr/local/bin && \
     chmod +x /usr/local/bin/readsb && \
