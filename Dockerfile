@@ -4,9 +4,15 @@ ARG TARGETPLATFORM
 RUN apt-get update && \
     apt-get install --no-install-recommends -y --no-install-recommends --no-install-suggests -y \
     git ca-certificates wget build-essential debhelper libusb-1.0-0-dev \
-    librtlsdr-dev librtlsdr0 pkg-config \
-    libncurses-dev zlib1g-dev libzstd-dev apt-rdepends
-RUN git clone --depth 1 --branch v3.14.1618 https://github.com/wiedehopf/readsb.git /app/git && \
+    pkg-config \
+    libncurses-dev zlib1g-dev libzstd-dev apt-rdepends cmake
+WORKDIR /app/rtlsdr
+RUN git clone https://gitea.osmocom.org/sdr/rtl-sdr.git /app/rtlsdr && \
+    export DEB_BUILD_OPTIONS=noautodbgsym && \
+    dpkg-buildpackage -b -ui -uc -us 
+RUN dpkg -i ../*.deb && ldconfig
+WORKDIR /app/git
+RUN git clone --depth 1 --branch v3.14.1620 https://github.com/wiedehopf/readsb.git /app/git && \
     export DEB_BUILD_OPTIONS=noautodbgsym && \
     dpkg-buildpackage -b -Prtlsdr -ui -uc -us
 RUN wget -qO /app/git/aircraft.csv.gz https://github.com/wiedehopf/tar1090-db/raw/csv/aircraft.csv.gz
@@ -16,7 +22,7 @@ RUN wget -qO /app/git/aircraft.csv.gz https://github.com/wiedehopf/tar1090-db/ra
 # and puts it all in the /newroot directory to be copied over to the stage 2 image
 WORKDIR /dpkg
 RUN mv /app/*.deb .
-RUN apt-get download --no-install-recommends $(apt-rdepends libusb-1.0-0 librtlsdr0 libncurses6 zlib1g libzstd1|grep -v "^ ") && \
+RUN apt-get download --no-install-recommends $(apt-rdepends libusb-1.0-0 libncurses6 zlib1g libzstd1|grep -v "^ ") && \
     rm libc* libgcc* gcc* 
 WORKDIR /newroot
 RUN dpkg --unpack -R --force-all --root=/newroot /dpkg/
