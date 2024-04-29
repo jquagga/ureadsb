@@ -12,7 +12,7 @@ RUN git clone https://gitea.osmocom.org/sdr/rtl-sdr.git /app/rtlsdr && \
     dpkg-buildpackage -b -ui -uc -us 
 RUN dpkg -i ../*.deb && ldconfig
 WORKDIR /app/git
-RUN git clone --depth 1 --branch v3.14.1620 https://github.com/wiedehopf/readsb.git /app/git && \
+RUN git clone --depth 1 --branch v3.14.1622 https://github.com/wiedehopf/readsb.git /app/git && \
     export DEB_BUILD_OPTIONS=noautodbgsym && \
     dpkg-buildpackage -b -Prtlsdr -ui -uc -us
 RUN wget -qO /app/git/aircraft.csv.gz https://github.com/wiedehopf/tar1090-db/raw/csv/aircraft.csv.gz
