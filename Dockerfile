@@ -1,4 +1,4 @@
-FROM debian:12-slim@sha256:67f3931ad8cb1967beec602d8c0506af1e37e8d73c2a0b38b181ec5d8560d395 AS builder
+FROM debian:12-slim@sha256:f528891ab1aa484bf7233dbcc84f3c806c3e427571d75510a9d74bb5ec535b33 AS builder
 WORKDIR /app/git
 ARG TARGETPLATFORM
 RUN apt-get update && \
@@ -27,7 +27,7 @@ RUN apt-get download --no-install-recommends $(apt-rdepends libusb-1.0-0 libncur
 WORKDIR /newroot
 RUN dpkg --unpack -R --force-all --root=/newroot /dpkg/
 
-FROM gcr.io/distroless/cc-debian12:nonroot@sha256:b9452f5cd004c1610d4056be70343a8a7ea3d46bcf0fda3ce90f1ed90e70989c
+FROM gcr.io/distroless/cc-debian12:nonroot@sha256:eeb716b8a36ecf37992cb8f1e716a4b5737c086fd3bcbb08b5c9588ad5c8a701
 COPY --from=builder /newroot /
 COPY --from=builder /app/git/aircraft.csv.gz /usr/local/share/tar1090/aircraft.csv.gz
 
