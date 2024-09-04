@@ -27,7 +27,7 @@ RUN apt-get download --no-install-recommends $(apt-rdepends libusb-1.0-0 libncur
 WORKDIR /newroot
 RUN dpkg --unpack -R --force-all --root=/newroot /dpkg/
 
-FROM gcr.io/distroless/cc-debian12:nonroot@sha256:eeb716b8a36ecf37992cb8f1e716a4b5737c086fd3bcbb08b5c9588ad5c8a701
+FROM gcr.io/distroless/cc-debian12:nonroot@sha256:9cd2fb6432b022ab88cdec439759b15ccef93b05fbaef043fbc7dc396b8c5b4e
 COPY --from=builder /newroot /
 COPY --from=builder /app/git/aircraft.csv.gz /usr/local/share/tar1090/aircraft.csv.gz
 
